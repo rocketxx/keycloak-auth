@@ -24,6 +24,14 @@ class AppAuthGuard extends KeycloakAuthGuard {
         resolve(true);
       }
     });
+
+    /*
+    // commenta la promise sopra e decommenta se vuoi sviluppare senza login attivo:
+        return new Promise(async (resolve, reject) => {
+
+        resolve(true);
+    });
+    */
   }
 }
 

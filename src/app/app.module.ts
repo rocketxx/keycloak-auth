@@ -38,7 +38,7 @@ export function initializeKeycloak(keycloak: KeycloakService) {
   providers: [
     {
       provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,
+      useFactory: initializeKeycloak,  // commenta da 39 a 44 se vuoi sviluppare senza login attivo:
       multi: true,
       deps: [KeycloakService]
     }
