@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppAuthGuard, AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { environment } from '../enviroments/environment';
@@ -36,9 +36,10 @@ export function initializeKeycloak(keycloak: KeycloakService) {
     KeycloakAngularModule
   ],
   providers: [
+    AppAuthGuard, // Aggiungi qui la guardia
     {
       provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,  // commenta da 39 a 44 se vuoi sviluppare senza login attivo:
+      useFactory: initializeKeycloak,
       multi: true,
       deps: [KeycloakService]
     }
