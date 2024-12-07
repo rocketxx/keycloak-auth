@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
+import { AuthService } from '../services/authService';
 
 @Component({
   selector: 'app-home',
@@ -9,28 +10,15 @@ import { KeycloakService } from 'keycloak-angular';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent {
 
 
-  constructor(private keycloakService: KeycloakService,private router: Router)
+  constructor(private auth_service:AuthService)
   {
 
   }
-  ngOnInit(): void {
-    
-    throw new Error('Method not implemented.');
-  }
 
   logout() {
-    // Esegui il logout di Keycloak
-    this.keycloakService.logout().then(() => {
-      // Reindirizza l'utente a una pagina di login o alla home page
-      this.router.navigate(['/']); // Puoi reindirizzare dove vuoi
-    }).catch((error) => {
-      console.error("Errore durante il logout:", error);
-    });
+    this.auth_service.logout();
   }
-
-
-
 }

@@ -15,30 +15,8 @@ export class AppAuthGuard extends KeycloakAuthGuard {
     super(router,keycloakAngular);
   }
 
-  // isAccessAllowed(): Promise<boolean> {
-  //   return new Promise(async (resolve, reject) => {
-  //     if (!this.authenticated) {
-  //       // Se non autenticato, reindirizza al login di Keycloak
-  //       this.keycloakAngular.login();
-  //       resolve(false);
-  //     } else {
-  //       // Qui puoi controllare eventuali ruoli o altri permessi se necessario
-  //       resolve(true);
-  //     }
-  //   });
-
-  //   /*
-  //   // commenta la promise sopra e decommenta se vuoi sviluppare senza login attivo:
-  //       return new Promise(async (resolve, reject) => {
-
-  //       resolve(true);
-  //   });
-  //   */
-  // }
   isAccessAllowed(): Promise<boolean> {
-    // debugger
     return new Promise(async (resolve, reject) => {
-      debugger
       if (!this.authenticated) {
         // Se non autenticato, reindirizza al login di Keycloak
         await this.keycloakAngular.login();
@@ -54,7 +32,6 @@ export class AppAuthGuard extends KeycloakAuthGuard {
           // Ruolo user: reindirizza a HomeComponent
           window.alert("Ciao admin");
           resolve(true)
-          this.router.navigate(['/home']);
         } else {
           // Nessun ruolo appropriato: reindirizza a una pagina di errore o Home
           this.router.navigate(['/']);
@@ -66,15 +43,6 @@ export class AppAuthGuard extends KeycloakAuthGuard {
   
 }
 
-// const routes: Routes = [
-//   { path: '', component: HomeComponent }, // Rotta pubblica
-//   {
-//     path: 'protected',
-//     component: ProtectedComponent,
-//     canActivate: [AppAuthGuard], // Rotta protetta da Keycloak
-//   },
-//   { path: '**', redirectTo: '' }, // Rotta di fallback
-// ];
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'protected', component: ProtectedComponent, canActivate: [AppAuthGuard] },
